@@ -1,3 +1,6 @@
+create database inmobiliariarossi;
+
+
 CREATE TABLE tipouser(
     codtipouser int PRIMARY KEY NOT NULL,
     tipouser char(1)
