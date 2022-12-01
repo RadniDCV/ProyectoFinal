@@ -7,4 +7,4 @@ const knex = require("knex")({
         password: "Radni123",
         database: "inmobiliariarossi",
     },
-}),
+})
