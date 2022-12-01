@@ -13,4 +13,7 @@ npm install express body-parser cookie-parser nodemon cors dotenv morgan knex ex
 
 npm install bootstrap
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
+
 
