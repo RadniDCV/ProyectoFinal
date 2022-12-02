@@ -16,4 +16,7 @@ npm install bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 
+npm i styled-components
+
+
 
