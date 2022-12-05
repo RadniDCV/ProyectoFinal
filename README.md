@@ -19,4 +19,6 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 npm i styled-components
 
 
+npm install --save @chakra-ui/react
+
 
