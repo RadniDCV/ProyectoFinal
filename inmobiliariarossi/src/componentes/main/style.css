@@ -1,0 +1,23 @@
+:root {
+    /*colores obscuros*/
+    --header1: #282828;
+    --boton1_2:#414141;
+    --logo1: #E31E23;
+    --fondText: #665A54;
+    --boton1_1: #E6612A;
+
+  
+    /*colores claros*/
+    --formu: #2FB8DC;
+    --text2: #BCC1CA;
+    --backgroud: #ececec;
+    --botons: #97D7EA;
+    --logo2: #ED8A64;
+    --logo3: #767676;
+    --headerText: #919191;
+  
+}
+
+.main{
+    background-color: var(--backgroud);
+}

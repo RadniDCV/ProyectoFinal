@@ -1,7 +1,7 @@
 import React from "react";
-import Cards from "./Cards";
+import Cards from "../main/Cards";
 import { SimpleGrid } from "@chakra-ui/react";
-import Buscador from "./Buscador";
+import Buscador from "../main/Buscador";
 
 const Main = () => {
   return (
