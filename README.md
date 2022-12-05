@@ -25,3 +25,4 @@ npm i mdb-react-ui-kit
 
 npm i --save @fortawesome/fontawesome-svg-core
 
+npm i react-icons
