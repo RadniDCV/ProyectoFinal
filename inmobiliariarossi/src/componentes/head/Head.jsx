@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React from "react";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../head/style.css";
@@ -9,9 +9,9 @@ import {
  
 } from "@chakra-ui/react";
 
+import Login from "../login/Login"
 
-function Head() {
-  const [count, setCount] = useState(0);
+const Head = () => {
  
   return (
     <section class='navba2'>
@@ -33,7 +33,7 @@ function Head() {
           _hover={{ bg: "#616161", boxShadow: "lg" }}
           margin = {"15px"}
         >
-          Ingresar
+        Ingresar 
         </Button>
 
          <Button
