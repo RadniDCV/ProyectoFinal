@@ -25,3 +25,17 @@ npm i mdb-react-ui-kit
 
 npm i --save @fortawesome/fontawesome-svg-core
 
+npm i react-icons
+
+ npm i @chakra-ui/icons
+ 
+ npm i @emotion/react
+ 
+ npm i @emotion/styled
+ 
+ npm i framer-motion
+ 
+ npm i react-scripts
+ 
+ npm i react-router-dom
+ 
