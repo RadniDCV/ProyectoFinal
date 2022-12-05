@@ -36,3 +36,6 @@ npm i react-icons
  npm i framer-motion
  
  npm i react-scripts
+ 
+ npm i react-router-dom
+ 
