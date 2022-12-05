@@ -1,0 +1,80 @@
+:root {
+    /*colores obscuros*/
+    --header1: #282828;
+    --boton1_2:#414141;
+    --logo1: #E31E23;
+    --fondText: #665A54;
+    --boton1_1: #E6612A;
+
+  
+    /*colores claros*/
+    --formu: #2FB8DC;
+    --text2: #BCC1CA;
+    --botons: #97D7EA;
+    --logo2: #ED8A64;
+    --logo3: #767676;
+    --headerText: #919191;
+  
+}
+
+.navba2 {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    align-content: flex-start;
+    overflow: auto;
+    background-color:  var(--header1);
+    padding-left: 10px;
+    padding-right: 10px;
+   
+    
+}
+.listmenu{
+    list-style-type: none;
+    padding: 10px;
+    overflow: hidden;
+    
+}
+
+.textnav{
+   color: var(--headerText);
+   float: left;
+   padding-left: 10px;
+   padding-right: 10px;
+}
+
+.button1{
+    border: none;
+    border-radius: 28px;
+    background-color: var(--headerText);
+    padding: 3px 10px 3px 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 0.8rem;
+    font-family: 'Montserrat', sans-serif;
+    
+}
+
+.button1:hover {
+    background: var(--boton1_1);
+    text-decoration: none;
+  }
+
+.logos{
+    width: 25px;
+    margin-left: 10px;
+}
+
+.logos1{
+    width: 55px;
+    background-color: var(--headerText);
+    margin: 5px;
+}
+.link{
+    text-decoration: none;
+    color: var(--text2);
+}
+.link:hover{
+    color: var(--boton1_1);
+}
