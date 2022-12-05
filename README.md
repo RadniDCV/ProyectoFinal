@@ -21,4 +21,6 @@ npm i styled-components
 
 npm install --save @chakra-ui/react
 
+npm i mdb-react-ui-kit
+
 
