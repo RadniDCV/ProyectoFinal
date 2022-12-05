@@ -23,4 +23,5 @@ npm install --save @chakra-ui/react
 
 npm i mdb-react-ui-kit
 
+npm i --save @fortawesome/fontawesome-svg-core
 
