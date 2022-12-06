@@ -16,6 +16,8 @@ import {
     InputRightElement
   } from "@chakra-ui/react";
  import {FaUserAlt, FaLock} from "react-icons/fa";
+
+ import Head from "../head/Head"
   
  const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -29,6 +31,8 @@ const CFaLock = chakra(FaLock);
     
   
     return (
+        <div>
+        <Head />
         <Flex
         flexDirection="column"
         width="100wh"
@@ -104,6 +108,7 @@ const CFaLock = chakra(FaLock);
           </Link>
         </Box>
       </Flex>
+      </div>
     );
   };
 

@@ -9,7 +9,7 @@ import {
  
 } from "@chakra-ui/react";
 
-import Login from "../login/Login"
+import { Outlet,Link } from "react-router-dom";
 
 const Head = () => {
  
@@ -18,14 +18,15 @@ const Head = () => {
       <div><img src ={log3} class="logos1"></img></div>
       <div>
       <ul class="listmenu">
-          <li class="textnav"><a href='#' class="link">Inicio</a></li>
-          <li class="textnav"><a href='#' class="link">Empresa</a></li>
-          <li class="textnav"><a href='#' class="link">Servicios</a></li>
-          <li class="textnav"><a href='#' class="link">Contactos</a></li>
-         
+          <li class="textnav"><Link to={"/"}>Inicio</Link></li>
+          <li class="textnav"><Link to={"/Empresa"}>Empresa</Link></li>
+          <li class="textnav"><Link to={"/Servicios"}>Servicios</Link></li>
+          <li class="textnav"><Link to={"/Contacto/"}>Contactos</Link></li>
+          
       </ul>
         </div>
       <div>
+        <Link to={"/login"}>
         <Button
           bg={"#414141"}
           color={"#bcc1ca;"}
@@ -35,6 +36,7 @@ const Head = () => {
         >
         Ingresar 
         </Button>
+        </Link>
 
          <Button
           bg={"#414141"}
