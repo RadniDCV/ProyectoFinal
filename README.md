@@ -41,3 +41,6 @@ npm i react-icons
  
  npm i react-hook-form
  
+npm install jsonwebtoken
+
+npm install bcrypt      
