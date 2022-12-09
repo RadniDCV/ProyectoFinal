@@ -44,3 +44,5 @@ npm i react-icons
 npm install jsonwebtoken
 
 npm install bcrypt      
+
+npm i axios
