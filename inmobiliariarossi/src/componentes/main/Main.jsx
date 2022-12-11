@@ -1,12 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import Cards from "../main/Cards";
-import { SimpleGrid } from "@chakra-ui/react";
+import { Box, SimpleGrid } from "@chakra-ui/react";
 import Buscador from "../main/Buscador";
+import { list, listfiltro } from "../../api/Inmuebles_API";
+import { useEffect } from "react";
 
 const Main = () => {
+  const [inmuebles, setInmuebles] = useState([]);
+
+  const filtroInmuebles = async () => {
+    await listfiltro()
+      .then((response) => {
+        setInmuebles(response);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
+  const getInmuebles = async () => {
+    await list()
+      .then((response) => {
+        setInmuebles(response);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
+  useEffect(() => {
+    getInmuebles();
+  }, []);
+
   return (
-    <div style={{ padding: "15px" }}>
-      <Buscador />
+    <Box p="15px" minH="70vh">
+      <Buscador onSubmit={filtroInmuebles} onReset={getInmuebles} />
 
       <SimpleGrid
         columns={[1, null, 2, 3, 4]}
@@ -18,18 +44,11 @@ const Main = () => {
         m="auto"
         alignItems="center"
       >
-        <Cards alquiler={"Alquiler"} />
-        <Cards alquiler={"Alquiler"} />
-        <Cards alquiler={"Alquiler"} />
-        <Cards alquiler={"Alquiler"} />
-        <Cards alquiler={"Alquiler"} />
-        <Cards alquiler={"Venta"} />
-        <Cards alquiler={"Venta"} />
-        <Cards alquiler={"Venta"} />
-        <Cards alquiler={"Venta"} />
-        <Cards alquiler={"Venta"} />
+        {inmuebles.map((data) => {
+          return <Cards data={data} key={data.codeinmueble} />;
+        })}
       </SimpleGrid>
-    </div>
+    </Box>
   );
 };
 

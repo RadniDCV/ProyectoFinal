@@ -9,7 +9,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { enviarConsulta } from "../../../../api/Inmuebles_API";
+import { enviarConsulta } from "../../../api/Inmuebles_API";
 
 function Consulta() {
   const {
@@ -19,8 +19,13 @@ function Consulta() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    await enviarConsulta(data);
-    alert("Consulta enviada correctamente");
+    await enviarConsulta(data)
+      .then(() => {
+        alert("Consulta enviada correctamente");
+      })
+      .catch((error) => {
+        alert(error);
+      });
   };
 
   return (
