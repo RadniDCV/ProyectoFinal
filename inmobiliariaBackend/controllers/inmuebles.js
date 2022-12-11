@@ -1,21 +1,14 @@
 let knex = require("../config/knexfile.js");
 
 exports.list = async (req, res) => {
-  const estado = 1;
   await knex("ubicacion")
-    .join(
-      "inmuebles",
-      "ubicacion.codeubicacion",
-      "=",
-      "inmuebles.codeubicacion"
-    )
+    .join("inmuebles", "ubicacion.codeubicacion", "=", "inmuebles.ubicacion")
     .select(
       "inmuebles.codeinmueble",
       "inmuebles.tipoinueble",
       "inmuebles.tipooperacion",
       "inmuebles.dethabitacion",
-      "inmuebles.precioalquiler",
-      "inmuebles.precioventa",
+      "inmuebles.precio",
       "ubicacion.departamento",
       "ubicacion.ciudad",
       "ubicacion.barrio"
@@ -28,16 +21,39 @@ exports.list = async (req, res) => {
     });
 };
 
+exports.listFiltro = async (req, res) => {
+  const { precioMin, precioMax, ubicacion, operacion } = req.body;
+
+  await knex("ubicacion")
+    .join("inmuebles", "ubicacion.codeubicacion", "=", "inmuebles.ubicacion")
+    .where("tipooperacion", operacion)
+    .andWhere("departamento", ubicacion)
+    // .andWhere("inmuebles.precio", "<", precioMax)
+    // .andWhere("inmuebles.precio", ">", precioMin)
+    .select(
+      "inmuebles.codeinmueble",
+      "inmuebles.tipoinueble",
+      "inmuebles.tipooperacion",
+      "inmuebles.dethabitacion",
+      "inmuebles.precio",
+      "ubicacion.departamento",
+      "ubicacion.ciudad",
+      "ubicacion.barrio"
+    )
+
+    .then((inmuebles) => {
+      res.json(inmuebles);
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+
 exports.inmuebleId = async (req, res) => {
   const id = req.params.id;
 
-  await knex("inmuebles")
-    .join(
-      "ubicacion",
-      "inmuebles.codeubicacion",
-      "=",
-      "ubicacion.codeubicacion"
-    )
+  await knex("ubicacion")
+    .join("inmuebles", "ubicacion.codeubicacion", "=", "inmuebles.ubicacion")
     .select("*")
     .where("codeinmueble", id)
     .then((inmuebles) => {
@@ -58,7 +74,7 @@ exports.inmueblePost = async (req, res) => {
       if (resultado.length) {
         res.status(400).json({
           error: "Ya hay una propiedad con esa dirección",
-          resultado: resultado,
+          resultado: resultado[0],
         });
         return;
       }
@@ -80,24 +96,23 @@ exports.inmueblePost = async (req, res) => {
             detMetTerreno,
             detHabitacion,
             detBanios,
-            precioAlquiler,
-            precioVenta,
+            precio,
             codPropietario,
           } = req.body;
           console.log(props);
           knex("inmuebles")
             .insert({
-              codeubicacion: props[0].codeubicacion,
+              ubicacion: props[0].codeubicacion,
               tipoinueble: tipoInmueble,
               tipooperacion: tipoOperacion,
               detmet: detMet,
               detmetterreno: detMetTerreno,
               dethabitacion: detHabitacion,
               detbanios: detBanios,
-              precioalquiler: precioAlquiler,
-              precioventa: precioVenta,
+              precio: precio,
               codpropietario: codPropietario,
             })
+
             .then(() => {
               res.json({
                 props: props,
@@ -114,7 +129,7 @@ exports.inmueblePost = async (req, res) => {
 exports.consultaPost = async (req, res) => {
   const { email, nombre, consulta } = req.body;
 
-  knex("consultas")
+  await knex("consultas")
     .insert({
       nombre: nombre,
       email: email,
@@ -123,6 +138,24 @@ exports.consultaPost = async (req, res) => {
     .then((respuesta) => {
       props: respuesta, res.json("se ha añadido su consulta");
     })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+
+exports.consultaAdmin = async (req, res) => {
+  knex("inmuebles").then((response) => {
+    res.json(response.length).catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+  });
+};
+
+exports.listAll = async (req, res) => {
+  knex("inmuebles")
+    .join("ubicacion", "inmuebles.ubicacion", "=", "ubicacion.codeubicacion")
+    .select("*")
+    .then((response) => res.json(response))
     .catch((error) => {
       res.status(400).json({ error: error.message });
     });
