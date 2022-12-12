@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import { ConsultaConsulta } from "../../../api/Inmuebles_API";
 import {
   Table,
   Tbody,
@@ -18,13 +17,14 @@ import {
   Tfoot,
   Center,
 } from "@chakra-ui/react";
+import { consultarUsuario } from "../../../api/Rule_user";
 
-function TodasConsultas() {
+function ConsultaUsuarios() {
   const [consultas, setConsultas] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const getConsultas = async () => {
-    await ConsultaConsulta()
+    await consultarUsuario()
       .then((response) => {
         setConsultas(response);
       })
@@ -36,7 +36,7 @@ function TodasConsultas() {
   return (
     <>
       <Button onClick={onOpen} bgColor="#97d7ea">
-        Todas las Consultas
+        Todos los usuarios
       </Button>
       <Modal
         onClose={onClose}
@@ -56,20 +56,24 @@ function TodasConsultas() {
               <Thead>
                 <Tr>
                   <Th>ID</Th>
-                  <Th>Email</Th>
-                  <Th>Nombre</Th>
-                  <Th>Consulta</Th>
-                  <Th>Inmueble </Th>
+                  <Th>Nombres</Th>
+                  <Th>Apellidos</Th>
+                  <Th>Direccion</Th>
+                  <Th>Telefono </Th>
                 </Tr>
               </Thead>
               <Tbody>
-                {consultas.map((propiedad) => (
+                {consultas.map((usuarios) => (
                   <Tr>
-                    <Td>{propiedad.id_consulta}</Td>
-                    <Td>{propiedad.email}</Td>
-                    <Td>{propiedad.nombre}</Td>
-                    <Td>{propiedad.consulta}</Td>
-                    <Td>{propiedad.inmueble}</Td>
+                    <Td>{usuarios.codeUser}</Td>
+                    <Td>
+                      {usuarios.firstName} {usuarios.middleName}
+                    </Td>
+                    <Td>
+                      {usuarios.lastName} {usuarios.lastNameM}
+                    </Td>
+                    <Td>{usuarios.direction}</Td>
+                    <Td>{usuarios.phone}</Td>
                   </Tr>
                 ))}
               </Tbody>
@@ -80,5 +84,4 @@ function TodasConsultas() {
     </>
   );
 }
-
-export default TodasConsultas;
+export default ConsultaUsuarios;
