@@ -26,8 +26,8 @@ exports.listFiltro = async (req, res) => {
 
   await knex("ubicacion")
     .join("inmuebles", "ubicacion.codeubicacion", "=", "inmuebles.ubicacion")
-    .where("tipooperacion", operacion)
-    .andWhere("departamento", ubicacion)
+    .where("inmuebles.tipooperacion", operacion)
+    .andWhere("ubicacion.departamento", ubicacion)
     // .andWhere("inmuebles.precio", "<", precioMax)
     // .andWhere("inmuebles.precio", ">", precioMin)
     .select(
@@ -58,6 +58,70 @@ exports.inmuebleId = async (req, res) => {
     .where("codeinmueble", id)
     .then((inmuebles) => {
       res.json(inmuebles);
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+exports.inmuebleDelete = async (req, res) => {
+  const id = req.body;
+
+  await knex("ubicacion")
+    .join("inmuebles", "ubicacion.codeubicacion", "=", "inmuebles.ubicacion")
+    .where("codeinmueble", id)
+    .del()
+    .then(() => {
+      res.json("La propiedad se ha eliminado con exito");
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+
+exports.inmuebleEdit = async (req, res) => {
+  const { departamento, ciudad, barrio, calle, coordenadas, detalles, id } =
+    req.body;
+
+  await knex("ubicacion")
+    .where("codeubicacion", id)
+    .update({
+      departamento: departamento,
+      ciudad: ciudad,
+      barrio: barrio,
+      calle: calle,
+      coordenadas: coordenadas,
+      detalles: detalles,
+    })
+    .then((props) => {
+      const {
+        tipoInmueble,
+        tipoOperacion,
+        detMet,
+        detMetTerreno,
+        detHabitacion,
+        detBanios,
+        precio,
+        codPropietario,
+      } = req.body;
+      knex("inmuebles")
+        .where("codeinmueble", id)
+        .update({
+          tipoinueble: tipoInmueble,
+          tipooperacion: tipoOperacion,
+          detmet: detMet,
+          detmetterreno: detMetTerreno,
+          dethabitacion: detHabitacion,
+          detbanios: detBanios,
+          precio: precio,
+          codpropietario: codPropietario,
+        })
+
+        .then(() => {
+          res.json({
+            props: props,
+            mensaje: "La propiedad se ha editado con éxito",
+          });
+        });
     })
     .catch((error) => {
       res.status(400).json({ error: error.message });
@@ -127,10 +191,11 @@ exports.inmueblePost = async (req, res) => {
 };
 
 exports.consultaPost = async (req, res) => {
-  const { email, nombre, consulta } = req.body;
+  const { email, nombre, consulta, id } = req.body;
 
   await knex("consultas")
     .insert({
+      inmueble: id,
       nombre: nombre,
       email: email,
       consulta: consulta,
@@ -142,13 +207,34 @@ exports.consultaPost = async (req, res) => {
       res.status(400).json({ error: error.message });
     });
 };
-
-exports.consultaAdmin = async (req, res) => {
-  knex("inmuebles").then((response) => {
-    res.json(response.length).catch((error) => {
+exports.NumConsulta = async (req, res) => {
+  knex("consultas")
+    .then((response) => {
+      res.json(response.length);
+    })
+    .catch((error) => {
       res.status(400).json({ error: error.message });
     });
-  });
+};
+
+exports.consultaConsulta = async (req, res) => {
+  knex("consultas")
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
+};
+
+exports.consultaAdmin = async (req, res) => {
+  knex("inmuebles")
+    .then((response) => {
+      res.json(response.length);
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error.message });
+    });
 };
 
 exports.listAll = async (req, res) => {
