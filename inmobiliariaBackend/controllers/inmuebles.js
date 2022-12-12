@@ -1,4 +1,4 @@
-let knex = require("../config/knexfile.js");
+let knex = require("../config/db.js");
 
 exports.list = async (req, res) => {
   await knex("ubicacion")

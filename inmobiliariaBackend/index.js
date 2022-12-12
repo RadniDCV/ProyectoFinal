@@ -1,15 +1,11 @@
+const morgan = require("morgan");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+require("dotenv").config();
 const express = require("express");
 
-const morgan = require("morgan");
-
-const bodyParser = require("body-parser");
-
-const cookieParser = require("cookie-parser");
-
-const cors = require("cors");
-
-require("dotenv").config();
-
+const userRouter = require("./routes/useRoutes");
 const inmueblesRoutes = require("./routes/inmuebles");
 
 const app = express();
@@ -24,6 +20,8 @@ app.get("/error", (req, res) => {
 });
 
 app.use("/api", inmueblesRoutes);
+
+app.use("/api", userRouter);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
