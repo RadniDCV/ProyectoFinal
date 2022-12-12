@@ -12,10 +12,13 @@ import React from "react";
 import IngresoInmuebles from "./componentes/IngresoInmuebles";
 import { Card, CardHeader, CardBody, CardFooter } from "@chakra-ui/react";
 import ConsultaInmuebles from "./componentes/ConsultaInmuebles";
+import NumeroPropiedades from "./componentes/NumeroPropiedades";
+import NumeroConsultas from "./componentes/NumeroConsultas";
+import TodasConsultas from "./componentes/TodasConsultas";
 
 function Admin() {
   return (
-    <Center>
+    <Center my="50px" h="auto">
       <Card minHeight="70vh">
         <CardHeader>
           <Heading size="lg">Página del Administrador</Heading>
@@ -35,14 +38,23 @@ function Admin() {
                 Consulte todas las propiedades
               </Text>
               <ConsultaInmuebles />
-            </Box>
-            <Box>
-              <Heading size="xs" textTransform="uppercase">
-                Overview
-              </Heading>
-              <Text pt="2" fontSize="sm">
-                Check out the overview of your clients.
+              <Text pt="2" fontSize="md" mb="5px">
+                Numero de propiedades
               </Text>
+              <NumeroPropiedades />
+            </Box>
+            <Box my="10px">
+              <Heading size="sm" textTransform="uppercase">
+                Consultas
+              </Heading>
+              <Text pt="2" fontSize="md" mb="5px">
+                Numero de Consultas
+              </Text>
+              <NumeroConsultas />
+              <Text pt="2" fontSize="md" mb="5px">
+                Consulte todas las consultas
+              </Text>
+              <TodasConsultas />
             </Box>
             <Box>
               <Heading size="xs" textTransform="uppercase">

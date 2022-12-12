@@ -18,6 +18,8 @@ import {
   Tfoot,
   Center,
 } from "@chakra-ui/react";
+import Edit from "./Editar";
+import Delete from "./Delete";
 
 function ConsultaInmuebles() {
   const [inmuebles, setInmuebles] = useState([]);
@@ -32,7 +34,6 @@ function ConsultaInmuebles() {
         alert(error);
       });
   };
-  console.log(inmuebles);
 
   return (
     <>
@@ -57,6 +58,7 @@ function ConsultaInmuebles() {
               <Thead>
                 <Tr>
                   <Th>ID</Th>
+                  <Th>Accion</Th>
                   <Th>Tipo</Th>
                   <Th>Operacion</Th>
                   <Th>Metraje construido</Th>
@@ -73,7 +75,11 @@ function ConsultaInmuebles() {
               <Tbody>
                 {inmuebles.map((propiedad) => (
                   <Tr>
-                    <Td>{propiedad.codepropiedad}</Td>
+                    <Td key={propiedad.ubicacion}>{propiedad.ubicacion}</Td>
+                    <Td>
+                      <Edit propiedad={propiedad} />
+                      <Delete propiedad={propiedad} />
+                    </Td>
                     <Td>{propiedad.tipoinueble}</Td>
                     <Td>{propiedad.tipooperacion}</Td>
                     <Td>{propiedad.detmet}</Td>

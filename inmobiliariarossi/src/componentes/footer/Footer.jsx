@@ -4,13 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Footer = () => {
   return (
-    <MDBFooter
-      className="text-center"
-      color="white"
-      bgColor="dark"
-      position="fixed"
-      bottom="0"
-    >
+    <MDBFooter className="text-center" color="white" bgColor="dark">
       <MDBContainer className="p-4">
         <section className="mb-4">
           <MDBBtn

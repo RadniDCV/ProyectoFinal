@@ -4,6 +4,7 @@ import {
   CardBody,
   CardHeader,
   Center,
+  Flex,
   Heading,
   HStack,
   SimpleGrid,
@@ -13,14 +14,18 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Inmuebleid } from "../../api/Inmuebles_API";
 import Carrusel from "./components/Carrusel";
 import Consulta from "./components/Consulta";
+import Detalles from "./components/Detalles";
 
 function Propiedad() {
-  const [inmuebles, setInmuebles] = useState({});
+  const [inmuebles, setInmuebles] = useState([]);
+  const id = useParams();
+
   const getInmueble = async () => {
-    await Inmuebleid()
+    await Inmuebleid(id.id)
       .then((response) => {
         setInmuebles(response);
       })
@@ -28,6 +33,7 @@ function Propiedad() {
         alert(error);
       });
   };
+
   useEffect(() => {
     getInmueble();
   }, []);
@@ -35,50 +41,12 @@ function Propiedad() {
   return (
     <SimpleGrid columns={[1, null, 2]} p="15px" gap="10px">
       <Center>
-        <Carrusel />
-        <Box></Box>
-      </Center>
-      <Center>
         <VStack>
-          <Box>
-            <Card>
-              <CardHeader>
-                <Heading size="md">Propiedad</Heading>
-              </CardHeader>
-
-              <CardBody>
-                <Stack divider={<StackDivider />} spacing="4">
-                  <Box>
-                    <Heading size="xs" textTransform="uppercase">
-                      Ubicacion
-                    </Heading>
-                    <Text pt="2" fontSize="sm">
-                      View a summary of all your clients over the last month.
-                    </Text>
-                  </Box>
-                  <Box>
-                    <Heading size="xs" textTransform="uppercase">
-                      Overview
-                    </Heading>
-                    <Text pt="2" fontSize="sm">
-                      Check out the overview of your clients.
-                    </Text>
-                  </Box>
-                  <Box>
-                    <Heading size="xs" textTransform="uppercase">
-                      Analysis
-                    </Heading>
-                    <Text pt="2" fontSize="sm">
-                      See a detailed analysis of all your business clients.
-                    </Text>
-                  </Box>
-                </Stack>
-              </CardBody>
-            </Card>
-          </Box>
-          <Consulta />
+          <Carrusel />
+          <Consulta id={id} />
         </VStack>
       </Center>
+      {inmuebles.length && <Detalles detalles={inmuebles[0]} />}
     </SimpleGrid>
   );
 }

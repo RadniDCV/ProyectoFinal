@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import Cards from "../main/Cards";
-import { Box, SimpleGrid } from "@chakra-ui/react";
+import { Box, SimpleGrid, Spinner } from "@chakra-ui/react";
 import Buscador from "../main/Buscador";
 import { list, listfiltro } from "../../api/Inmuebles_API";
 import { useEffect } from "react";
+import Hero from "./Hero";
 
 const Main = () => {
   const [inmuebles, setInmuebles] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const filtroInmuebles = async () => {
-    await listfiltro()
+  const filtroInmuebles = async (datos) => {
+    await listfiltro(datos)
       .then((response) => {
         setInmuebles(response);
       })
@@ -27,27 +29,37 @@ const Main = () => {
       });
   };
   useEffect(() => {
+    setIsLoading(true);
     getInmuebles();
+    setIsLoading(false);
   }, []);
+  console.log(inmuebles);
 
   return (
-    <Box p="15px" minH="70vh">
-      <Buscador onSubmit={filtroInmuebles} onReset={getInmuebles} />
+    <Box>
+      <Hero />
+      <Box p="15px" height="auto" mb="80px">
+        <Buscador onSubmit={filtroInmuebles} onReset={getInmuebles} />
 
-      <SimpleGrid
-        columns={[1, null, 2, 3, 4]}
-        justifyContent="space-around"
-        spacing="20px"
-        mx="50"
-        my="15"
-        w={"80%"}
-        m="auto"
-        alignItems="center"
-      >
-        {inmuebles.map((data) => {
-          return <Cards data={data} key={data.codeinmueble} />;
-        })}
-      </SimpleGrid>
+        <SimpleGrid
+          columns={[1, null, 2, 3, 4]}
+          justifyContent="space-around"
+          spacing="20px"
+          mx="50"
+          my="15"
+          w={"80%"}
+          m="auto"
+          alignItems="center"
+        >
+          {isLoading ? (
+            <Spinner color="red.400" size="xl" thickness="5px" m="auto" />
+          ) : (
+            inmuebles.map((data) => {
+              return <Cards data={data} key={data.codeinmueble} />;
+            })
+          )}
+        </SimpleGrid>
+      </Box>
     </Box>
   );
 };

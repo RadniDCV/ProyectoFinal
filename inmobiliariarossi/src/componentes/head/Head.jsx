@@ -9,7 +9,7 @@ function Head() {
   const [count, setCount] = useState(0);
 
   return (
-    <section className="navba2" position="fixed" top="0">
+    <section className="navba2">
       <div>
         <img src={log3} className="logos1"></img>
       </div>

@@ -7,11 +7,12 @@ import {
   Input,
   Textarea,
   Button,
+  InputLeftAddon,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { enviarConsulta } from "../../../api/Inmuebles_API";
 
-function Consulta() {
+function Consulta({ id }) {
   const {
     register,
     formState: { errors },
@@ -31,6 +32,7 @@ function Consulta() {
   return (
     <FormControl w="80%" as="form" onSubmit={handleSubmit(onSubmit)}>
       <FormLabel mt="5">Ingrese su nombre</FormLabel>
+
       <Input
         placeholder="Nombre"
         type="text"
