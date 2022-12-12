@@ -22,7 +22,6 @@ export const listfiltro = async (info) => {
       throw error.response.data.error || "Error procesando la solicitud";
     });
 };
-
 export const consultaNumInmuebles = async () => {
   let url = "/api/inmuebles/activos";
   return await API.get(url)
