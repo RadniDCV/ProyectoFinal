@@ -1,35 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
 import Cards from "../main/Cards";
-import { SimpleGrid } from "@chakra-ui/react";
+import { Box, SimpleGrid, Spinner } from "@chakra-ui/react";
 import Buscador from "../main/Buscador";
+import { list, listfiltro } from "../../api/Inmuebles_API";
+import { useEffect } from "react";
+import Hero from "./Hero";
 
 const Main = () => {
-  return (
-    <div style={{ padding: "15px" }}>
-      <Buscador />
+  const [inmuebles, setInmuebles] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-      <SimpleGrid
-        columns={[1, null, 2, 3, 4]}
-        justifyContent="space-around"
-        spacing="20px"
-        mx="50"
-        my="15"
-        w={"80%"}
-        m="auto"
-        alignItems="center"
-      >
-        <Cards alquiler={"Alquiler"} />
-        <Cards alquiler={"Alquiler"} />
-        <Cards alquiler={"Alquiler"} />
-        <Cards alquiler={"Alquiler"} />
-        <Cards alquiler={"Alquiler"} />
-        <Cards alquiler={"Venta"} />
-        <Cards alquiler={"Venta"} />
-        <Cards alquiler={"Venta"} />
-        <Cards alquiler={"Venta"} />
-        <Cards alquiler={"Venta"} />
-      </SimpleGrid>
-    </div>
+  const filtroInmuebles = async (datos) => {
+    await listfiltro(datos)
+      .then((response) => {
+        setInmuebles(response);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
+  const getInmuebles = async () => {
+    await list()
+      .then((response) => {
+        setInmuebles(response);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
+  useEffect(() => {
+    setIsLoading(true);
+    getInmuebles();
+    setIsLoading(false);
+  }, []);
+  console.log(inmuebles);
+
+  return (
+    <Box>
+      <Hero />
+      <Box p="15px" height="auto" mb="80px">
+        <Buscador onSubmit={filtroInmuebles} onReset={getInmuebles} />
+
+        <SimpleGrid
+          columns={[1, null, 2, 3, 4]}
+          justifyContent="space-around"
+          spacing="20px"
+          mx="50"
+          my="15"
+          w={"80%"}
+          m="auto"
+          alignItems="center"
+        >
+          {isLoading ? (
+            <Spinner color="red.400" size="xl" thickness="5px" m="auto" />
+          ) : (
+            inmuebles.map((data) => {
+              return <Cards data={data} key={data.codeinmueble} />;
+            })
+          )}
+        </SimpleGrid>
+      </Box>
+    </Box>
   );
 };
 

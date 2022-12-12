@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import Head from "../head/Head"
+import Footer from "../footer/Footer"
 
 
 class App extends Component {
@@ -72,16 +73,15 @@ class App extends Component {
             {this.state.alertData.message}
           </div>
         </div>}
-        <div className='container' style={{ padding: `40px 0px` }}>
+        <div className='container' style={{ padding: `10px 0px` }}>
           <div className='row'>
             <div className='col-sm-4'>
-              <h2>Contact Form</h2>
+              <h2>Contactanos</h2>
               <form onSubmit={this.sendMessage.bind(this)} ref='contactForm' >
                 <div className='form-group'>
-                  <label htmlFor='name'>Name</label>
+                  <label >Nombre</label>
                   <input type='text' className='form-control' id='name' 
-                    placeholder='Name' ref={name => this.inputName = name} 
-                  />
+                    placeholder='Nombre'  />
                 </div>
                 <div className='form-group'>
                   <label htmlFor='exampleInputEmail1'>Email</label>
@@ -90,7 +90,7 @@ class App extends Component {
                   />
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='city'>City</label>
+                  <label htmlFor='city'>Ciudad</label>
                   <select className='form-control' id='city' ref={city => this.inputCity = city}>
                     <option value='Montevideo'>Montevideo</option>
                     <option value='Canelones'>Canelones</option>
@@ -104,16 +104,17 @@ class App extends Component {
                   />
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='message'>Message</label>
+                  <label htmlFor='message'>Mensaje</label>
                   <textarea className='form-control' id='message' 
                     rows='3' ref={message => this.textAreaMessage = message}>
                   </textarea>
                 </div>
-                <button type='submit' className='btn btn-primary'>Send</button>
+                <button type='submit' className='btn btn-primary'>enviar</button>
               </form>
             </div>
           </div>
         </div>
+        <Footer/>
       </div>
     );
   }

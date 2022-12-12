@@ -38,6 +38,7 @@ const Head = () => {
         </Button>
         </Link>
 
+        <Link to={"/Registro"}>
          <Button
           bg={"#414141"}
           color={"#bcc1ca;"}
@@ -47,6 +48,7 @@ const Head = () => {
         >
           Registrarse
         </Button> 
+        </Link>
          
       </div>
     </section>
