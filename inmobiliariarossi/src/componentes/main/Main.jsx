@@ -35,7 +35,6 @@ const Main = () => {
     getInmuebles();
     setIsLoading(false);
   }, []);
-  console.log(inmuebles);
 
   return (
     <Box>

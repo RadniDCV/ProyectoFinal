@@ -1,18 +1,4 @@
-import {
-  Box,
-  Card,
-  CardBody,
-  CardHeader,
-  Center,
-  Flex,
-  Heading,
-  HStack,
-  SimpleGrid,
-  Stack,
-  StackDivider,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Button, Center, SimpleGrid, VStack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Inmuebleid } from "../../api/Inmuebles_API";

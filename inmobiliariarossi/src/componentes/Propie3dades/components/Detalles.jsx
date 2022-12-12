@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import {
   Box,
   Card,
@@ -9,15 +9,31 @@ import {
   Stack,
   StackDivider,
   Text,
+  Tooltip,
+  Button,
 } from "@chakra-ui/react";
 
 function Detalles({ detalles }) {
-  console.log(detalles);
+  //funcion para compartir inmueble
+  const url = location.href;
+  navigator.clipboard.writeText(url);
+  const [copySuccess, setCopySuccess] = useState("");
+  const textAreaRef = useRef(null);
+  async function copyToClip() {
+    await navigator.clipboard.writeText(location.href);
+    setCopySuccess("Copied");
+  }
+
   return (
     <Box>
       <Card>
-        <CardHeader>
+        <CardHeader display="flex" dir="row" justifyContent={"space-between"}>
           <Heading size="md">Propiedad</Heading>
+          <Tooltip label="Url copiada" closeDelay={500} openOnClick={true}>
+            <Button onClick={copyToClip} bgColor="#97d7ea">
+              Compartir
+            </Button>
+          </Tooltip>
         </CardHeader>
 
         <CardBody>
