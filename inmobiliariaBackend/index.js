@@ -5,7 +5,7 @@ const cors = require("cors")
 require("dotenv").config();
 const express = require("express");
 
-const userRouter = require("./routes/useRoutes")
+const inmueblesRoutes = require("./routes/inmuebles");
 
 const app = express();
 
@@ -14,7 +14,12 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
 
-app.use("/api", userRouter);
+app.get("/error", (req, res) => {
+    res.status(400).json({ error: "Error inesperado" });
+  });
+
+
+app.use("/api", inmueblesRoutes);
 
 const port = process.env.PORT || 8000;
 app.listen(port,()=>{

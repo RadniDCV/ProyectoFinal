@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "../componentes/head/Head";
-import Footer from "../componentes/footer/Footer"
+import Header from "./head/Head";
+import Footer from "./footer/Footer"
 import img from "../componentes/ComponenUser/Logo.jpg";
 import "../componentes/stylemp.css";
 
