@@ -16,6 +16,8 @@ import {
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Inmuebleid } from "../../api/Inmuebles_API";
+import Footer from "../footer/Footer";
+import Head from "../head/Head";
 import Carrusel from "./components/Carrusel";
 import Consulta from "./components/Consulta";
 import Detalles from "./components/Detalles";
@@ -39,15 +41,19 @@ function Propiedad() {
   }, []);
 
   return (
-    <SimpleGrid columns={[1, null, 2]} p="15px" gap="10px">
-      <Center>
-        <VStack>
-          <Carrusel />
-          <Consulta id={id} />
-        </VStack>
-      </Center>
-      {inmuebles.length && <Detalles detalles={inmuebles[0]} />}
-    </SimpleGrid>
+    <>
+      <Head />
+      <SimpleGrid columns={[1, null, 2]} p="15px" gap="10px">
+        <Center>
+          <VStack>
+            <Carrusel />
+            <Consulta id={id} />
+          </VStack>
+        </Center>
+        {inmuebles.length && <Detalles detalles={inmuebles[0]} />}
+      </SimpleGrid>
+      <Footer />
+    </>
   );
 }
 

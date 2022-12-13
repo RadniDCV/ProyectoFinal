@@ -1,9 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import {
-  ConsultaConsulta,
-  consultaInmuebles,
-} from "../../../api/Inmuebles_API";
+import { ConsultaConsulta } from "../../../api/Inmuebles_API";
 import {
   Table,
   Tbody,

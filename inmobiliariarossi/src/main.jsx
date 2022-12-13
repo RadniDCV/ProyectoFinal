@@ -1,83 +1,55 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { ChakraProvider } from "@chakra-ui/react"
-import {createBrowserRouter, RouterProvider, Route} from "react-router-dom"
-
-import Main from "../src/componentes/main/Main"
-import Header from "./componentes/head/Head"
-import Footer from './componentes/footer/Footer'
-import Admin from "./componentes/Admin/Admin"
-import ErrorPage from './ErrorPage'
-import Propiedad from "./componentes/Propie3dades/Propiedad"
-
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import { ChakraProvider } from "@chakra-ui/react";
+import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
+import ErrorPage from "./Errorpage";
 import Contactos from "./componentes/contactos/Contactos";
-import Login from "./componentes/login/Login";
-import Empresa from './componentes/Empresa';
-import Servicios from './componentes/Servicios';
-import Registro from './componentes/registro/Registro';
-
-
-
-
-
-
-
+import Empresa from "./componentes/Empresa";
+import Servicios from "./componentes/Servicios";
+import Main from "./componentes/main/Main";
+import Propiedad from "./componentes/Propie3dades/Propiedad";
+import Admin from "./componentes/Admin/Admin";
 
 const router = createBrowserRouter([
   {
+    path: "contacto/",
+    element: <Contactos />,
+    errorElement: <ErrorPage />,
+  },
+
+  {
+    path: "empresa/",
+    element: <Empresa />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/servicios/",
+    element: <Servicios />,
+    errorElement: <ErrorPage />,
+  },
+
+  {
     path: "/",
     element: <Main />,
-    errorElement: <ErrorPage/>,
+    errorElement: <ErrorPage />,
   },
   {
-    path: "/inmueble/:id",
+    path: "inmueble/:id",
     element: <Propiedad />,
-    errorElement: <ErrorPage/>
+    errorElement: <ErrorPage />,
   },
   {
-    path: "/admin/",
+    path: "admin/",
     element: <Admin />,
-    errorElement: <ErrorPage/>
+    errorElement: <ErrorPage />,
   },
-  {
-    path: "/Contacto",
-    element: <Contactos />,
-    errorElement: <ErrorPage/>,
-  },
-
-  {
-    path: "/Login",
-    element: <Login />,
-    errorElement: <ErrorPage/>,
-  },
-  {
-    path: "/Empresa",
-    element: <Empresa />,
-    errorElement: <ErrorPage/>
-  },
-  {
-    path: "/Servicios",
-    element: <Servicios />,
-    errorElement: <ErrorPage/>
-  },
-  {
-    path: "/Registro",
-    element: <Registro />,
-    errorElement: <ErrorPage/>
-  },
-
-
-
-
 ]);
 
-
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ChakraProvider>
-      <Header />
-      <RouterProvider router={router}/>      
-      <Footer />
-  </ChakraProvider>
- </React.StrictMode>
-)
+      <RouterProvider router={router} />
+    </ChakraProvider>
+  </React.StrictMode>
+);

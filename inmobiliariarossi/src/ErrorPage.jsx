@@ -1,6 +1,6 @@
 import { Flex, Text, Image, Button } from "@chakra-ui/react";
 import { useRouteError, Link } from "react-router-dom";
-import error from "../src/assets/error.webp";
+import error from "./assets/error.webp";
 function ErrorPage() {
   return (
     <Flex direction="column" justify="start" align="center" h="100vh">

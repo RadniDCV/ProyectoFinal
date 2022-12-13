@@ -1,12 +1,10 @@
-
 const knex = require("../config/db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-exports.infoUser = (req,  res) => {
+exports.infoUser = (req, res) => {
   res.json(req.user.nombre);
-}
-
+};
 
 exports.listUser = (req, res) => {
   knex("users")
@@ -19,11 +17,11 @@ exports.listUser = (req, res) => {
 };
 
 exports.register = async (req, res) => {
-  const {nombre,passw,email, tipousuario} = req.body;
-  console.log()
+  const { nombre, passw, email, snombre, apellido, sapellido, direccion } =
+    req.body;
+  console.log();
   const salt = await bcrypt.genSalt(10);
   const passwEncrypt = await bcrypt.hash(passw, salt);
-
   knex("users")
     .where({ email: email })
     .then((resultado) => {
@@ -33,23 +31,24 @@ exports.register = async (req, res) => {
       }
       knex("users")
         .insert({
-          nombre: nombre,
+          firstName: nombre,
+          middleName: snombre,
+          lastName: apellido,
+          lastNameM: sapellido,
           passw: passwEncrypt,
           email: email,
-          tipousuario: tipousuario,
+          direction: direccion,
         })
         .then(() => {
           res.json({
             success: true,
             mensaje: "El usuario se ha registrado correctamente",
-            
           });
         })
         .catch((error) => {
           res.status(400).json({ error: error.message });
         });
     });
-   
 };
 
 exports.login = (req, res) => {
@@ -64,13 +63,10 @@ exports.login = (req, res) => {
         return;
       }
       /* Logging the password from the database and the password from the request. */
-  
-      const validatePassword = await bcrypt
-    
-      .compare(passw, resultado[0].passw)
-  
+
+      const validatePassword = await bcrypt.compare(passw, resultado[0].passw);
+
       if (!validatePassword) {
-     
         res.status(404).json({
           error: "Email y/o contraseña incorrecta/s",
         });
@@ -81,10 +77,13 @@ exports.login = (req, res) => {
           nombre: resultado[0].nombre,
           email: resultado[0].email,
           tipousuario: resultado[0].tipousuario,
-          codeuser: resultado[0].codeuser
+          codeuser: resultado[0].codeuser,
         },
         process.env.TOKEN_SECRET
       );
       res.json({ success: true, token: token });
+    })
+    .catch((error) => {
+      return res.status(400).json({ error: error.message });
     });
 };

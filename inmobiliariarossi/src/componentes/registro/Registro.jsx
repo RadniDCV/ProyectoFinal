@@ -1,39 +1,42 @@
 import { useState } from "react";
 import {
-    Flex,
-    Heading,
-    Input,
-    Button,
-    InputGroup,
-    Stack,
-    InputLeftElement,
-    chakra,
-    Box,
-    Link,
-    Avatar,
-    FormControl,
-    FormHelperText,
-    InputRightElement
-  } from "@chakra-ui/react";
- import {FaUserAlt, FaLock} from "react-icons/fa";
+  Flex,
+  Heading,
+  Input,
+  Button,
+  InputGroup,
+  Stack,
+  InputLeftElement,
+  chakra,
+  Box,
+  Link,
+  Avatar,
+  FormControl,
+  FormHelperText,
+  InputRightElement,
+} from "@chakra-ui/react";
+import { FaUserAlt, FaLock } from "react-icons/fa";
+import { useForm } from "react-hook-form";
 
- import Head from "../head/Head"
-  
- const CFaUserAlt = chakra(FaUserAlt);
+import Head from "../head/Head";
+
+const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
+const Login = () => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+  const [showPassword, setShowPassword] = useState(false);
 
-  const Login = () => {
-    
-    const [showPassword, setShowPassword] = useState(false);
+  const handleShowClick = () => setShowPassword(!showPassword);
 
-    const handleShowClick = () => setShowPassword(!showPassword);
-    
-  
-    return (
-        <div>
-        <Head />
-        <Flex
+  return (
+    <div>
+      <Head />
+      <Flex
         flexDirection="column"
         width="100wh"
         height="100vh"
@@ -63,18 +66,16 @@ const CFaLock = chakra(FaLock);
                     <Input type="snombre" placeholder="S. Nombre" />
                     <Input type="Apaterno" placeholder="Ap. Paterno" />
                     <Input type="Amaterno" placeholder="Ap. Materno" />
-     
                   </InputGroup>
                   <InputGroup>
-                  <Input type="email" placeholder="email" />
+                    <Input type="email" placeholder="email" />
                   </InputGroup>
                   <InputGroup>
-                  <Input type="direccion" placeholder="Direccion" />
+                    <Input type="direccion" placeholder="Direccion" />
                   </InputGroup>
                   <InputGroup>
-                  <Input type="telefono" placeholder="Telefono" />
+                    <Input type="telefono" placeholder="Telefono" />
                   </InputGroup>
-
                 </FormControl>
                 <FormControl>
                   <InputGroup>
@@ -109,7 +110,6 @@ const CFaLock = chakra(FaLock);
                       </Button>
                     </InputRightElement>
                   </InputGroup>
-                  
                 </FormControl>
                 <Button
                   borderRadius={0}
@@ -117,18 +117,16 @@ const CFaLock = chakra(FaLock);
                   variant="solid"
                   colorScheme="gray"
                   width="full"
-
                 >
-                 Guardar
+                  Guardar
                 </Button>
               </Stack>
             </form>
           </Box>
         </Stack>
-        
       </Flex>
-      </div>
-    );
-  };
+    </div>
+  );
+};
 
-  export default Login;
+export default Login;

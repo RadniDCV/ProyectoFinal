@@ -1,39 +1,92 @@
-import { Box, Grid, GridItem } from "@chakra-ui/react";
-import React from "react";
-import { Locacion, Select } from "./components/Radio";
-import Slider from "./components/Slider";
+import {
+  Box,
+  Select,
+  Grid,
+  GridItem,
+  RangeSlider,
+  RangeSliderTrack,
+  RangeSliderFilledTrack,
+  RangeSliderThumb,
+  RangeSliderMark,
+  Button,
+  FormControl,
+} from "@chakra-ui/react";
+import { SearchIcon, RepeatIcon } from "@chakra-ui/icons";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { listfiltro } from "../../api/Inmuebles_API";
 
-function Buscador() {
+function Buscador({ onSubmit, onReset }) {
+  const [valor, setValor] = useState([]);
+  const [inmuebles, setInmuebles] = useState([]);
+  const value = {
+    precioMin: valor[0],
+    precioMax: valor[1],
+  };
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
+    defaultValues: value,
+  });
+
+  const filtroInmuebles = async (data) => {
+    await listfiltro(data)
+      .then((response) => {
+        setInmuebles(response);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
+
   return (
-    <Box
+    <FormControl
       maxW={"80%"}
       m="auto"
       mb={"50px"}
       bg={"#edeaea"}
       boxShadow="lg"
       p="10px"
+      as="form"
+      onSubmit={handleSubmit(onSubmit)}
     >
       <Grid
-        gridTemplateColumns={"30% 70%"}
-        gridTemplateRows={"1fr 1fr 1fr"}
+        gridtemplatecolumns={"30% 70%"}
+        gridtemplaterows={"1fr 1fr "}
         templateAreas={`"txt1 select"
         "txt2 departamento"
-        "txt3 slider"`}
+`}
       >
         <GridItem area={"txt1"}>Elija el tipo de operación que desea</GridItem>
         <GridItem area={"txt2"}>Elija una ubicación</GridItem>
-        <GridItem area={"txt3"}>Elija un rango de precios</GridItem>
         <GridItem area={"departamento"}>
-          <Locacion />
+          <Select placeholder="Departamento" {...register("ubicacion")}>
+            <option value="Montevideo">Montevideo</option>
+            <option value="Maldonado">Maldonado</option>
+            <option value="Canelones">Canelones</option>
+          </Select>
         </GridItem>
         <GridItem area={"select"}>
-          <Select />
-        </GridItem>
-        <GridItem area={"slider"}>
-          <Slider />
+          <Select
+            placeholder="Seleccione una operacion"
+            {...register("operacion")}
+          >
+            <option value="Alquiler">Alquiler</option>
+            <option value="Venta">Venta</option>
+          </Select>
         </GridItem>
       </Grid>
-    </Box>
+      <Box display={"flex"} justifyContent={"space-between"} w="90%" m="auto">
+        <Button onClick={onReset}>
+          <RepeatIcon />
+        </Button>
+        <Button type="submit">
+          <SearchIcon />
+        </Button>
+      </Box>
+    </FormControl>
   );
 }
 

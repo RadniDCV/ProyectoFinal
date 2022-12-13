@@ -1,10 +1,11 @@
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const cors = require("cors")
+const cors = require("cors");
 require("dotenv").config();
 const express = require("express");
 
+const userRouter = require("./routes/useRoutes");
 const inmueblesRoutes = require("./routes/inmuebles");
 
 const app = express();
@@ -15,13 +16,15 @@ app.use(cookieParser());
 app.use(cors());
 
 app.get("/error", (req, res) => {
-    res.status(400).json({ error: "Error inesperado" });
-  });
-
+  res.status(400).json({ error: "Error inesperado" });
+});
 
 app.use("/api", inmueblesRoutes);
 
+app.use("/api", userRouter);
+
 const port = process.env.PORT || 8000;
-app.listen(port,()=>{
-    console.log(`Server is running on port ${port}`)
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
+

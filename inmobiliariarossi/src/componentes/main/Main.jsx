@@ -5,6 +5,8 @@ import Buscador from "../main/Buscador";
 import { list, listfiltro } from "../../api/Inmuebles_API";
 import { useEffect } from "react";
 import Hero from "./Hero";
+import Head from "../head/Head";
+import Footer from "../footer/Footer";
 
 const Main = () => {
   const [inmuebles, setInmuebles] = useState([]);
@@ -37,6 +39,7 @@ const Main = () => {
 
   return (
     <Box>
+      <Head />
       <Hero />
       <Box p="15px" height="auto" mb="80px">
         <Buscador onSubmit={filtroInmuebles} onReset={getInmuebles} />
@@ -60,6 +63,7 @@ const Main = () => {
           )}
         </SimpleGrid>
       </Box>
+      <Footer />
     </Box>
   );
 };
